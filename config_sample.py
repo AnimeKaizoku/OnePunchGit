@@ -1,3 +1,5 @@
+# Open port in firewall by running the following cmd command. 
+# netsh advfirewall firewall add rule name="One Punch Git" dir=out action=allow protocol=TCP localport=1258
 # Your Bot token in the quotes taken from @BotFather
 BOT_TOKEN = ""
 

@@ -186,6 +186,9 @@ def git_api(groupid):
 """
             response = post_tg(groupid, text, "html")
             return response
+        if data['action'] == 'labeled':
+            # don't send labeled issue update to group, since it's spammy  
+            return ''
         text = f"""🚨 New {data['action']} issue for <b>{escape(data['repository']['name'])}</b>
 <b>{escape(data['issue']['title'])}</b>
 {escape(data['issue']['body'])}

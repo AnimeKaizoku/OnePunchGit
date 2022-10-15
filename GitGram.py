@@ -6,6 +6,11 @@ from html import escape
 from requests import get, post
 from os import environ
 import config
+from .utils import (
+    html_bold,
+    html_link,
+    html_normal,
+)
 
 from telegram.ext import CommandHandler, Updater
 
@@ -133,7 +138,7 @@ def helloWorld():
 @server.route("/<groupid>", methods=['GET', 'POST'])
 def git_api(groupid):
     """Requests to api.github.com"""
-    data = request.json
+    data: dict = request.json
     if not data:
         return f"<b>Add this url:</b> {ip_addr}/{groupid} to webhooks of the project"
 
@@ -149,6 +154,8 @@ def git_api(groupid):
         )
         return response
 
+    the_sender = data['sender']
+    
     if data.get('commits'):
         commits_text = ""
         rng = len(data['commits'])
@@ -179,10 +186,10 @@ def git_api(groupid):
 
     if data.get('issue'):
         if data.get('comment'):
-            text = f"""💬 New comment: <b>{escape(data['repository']['name'])}</b>
-{escape(data['comment']['body'])}
+            text = f"""💬 New comment on {html_bold(data['repository']['name'])} by {html_link(the_sender['login'], the_sender['html_url'])}\n: 
+{html_normal(data['comment']['body'])}
 
-<a href='{data['comment']['html_url']}'>Issue #{data['issue']['number']}</a>
+{html_link('Issue #' + data['issue']['number'], data['comment']['html_url'])}
 """
             response = post_tg(groupid, text, "html")
             return response

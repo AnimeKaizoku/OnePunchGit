@@ -55,7 +55,7 @@ def html_italic(value, *argv) -> str:
 def html_link(value, link: str, *argv) -> str:
     if not isinstance(link, str) or len(link) == 0:
         return html_mono(value, *argv)
-    return f"<a href={html.escape(link)}>{html.escape(str(value))}</a>" +  get_html_normal(*argv)
+    return f"<a href='{html.escape(link)}'>{html.escape(str(value))}</a>" +  get_html_normal(*argv)
 
 
 def get_html_normal(*argv) -> str:

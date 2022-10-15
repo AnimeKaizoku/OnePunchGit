@@ -186,7 +186,7 @@ def git_api(groupid):
 
     if data.get('issue'):
         if data.get('comment'):
-            text = f"""💬 New comment on {html_bold(data['repository']['name'])} by {html_link(the_sender['login'], the_sender['html_url'])}\n: 
+            text = f"""💬 New comment on {html_bold(data['repository']['name'])} by {html_link(the_sender['login'], the_sender['html_url'])}: 
 {html_normal(data['comment']['body'])}
 
 <a href='{data['comment']['html_url']}'>Issue #{data['issue']['number']}</a>

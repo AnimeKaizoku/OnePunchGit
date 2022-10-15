@@ -6,7 +6,7 @@ from html import escape
 from requests import get, post
 from os import environ
 import config
-from .utils import (
+from utils import (
     html_bold,
     html_link,
     html_normal,

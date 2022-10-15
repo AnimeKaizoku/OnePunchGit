@@ -189,7 +189,7 @@ def git_api(groupid):
             text = f"""💬 New comment on {html_bold(data['repository']['name'])} by {html_link(the_sender['login'], the_sender['html_url'])}\n: 
 {html_normal(data['comment']['body'])}
 
-{html_link('Issue #' + str(data['issue']['number']), data['comment']['html_url'])}
+<a href='{data['comment']['html_url']}'>Issue #{data['issue']['number']}</a>
 """
             response = post_tg(groupid, text, "html")
             return response

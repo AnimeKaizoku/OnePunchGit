@@ -167,7 +167,11 @@ def git_api(groupid):
                 commit_msg = escape(commit['message']).split("\n")[0]
             else:
                 commit_msg = escape(commit['message'])
-            commits_text += f"{commit_msg}\n<a href='{commit['url']}'>{commit['id'][:7]}</a> - {commit['author']['name']} {escape('<')}{commit['author']['email']}{escape('>')}\n\n"
+            
+            email_part = ''
+            if commit['author']['email'] and commit['author']['email'].endswith("@kaizoku.cyou"):
+                email_part = f"<{commit['author']['email']}>"
+            commits_text += f"{commit_msg}\n<a href='{commit['url']}'>{commit['id'][:7]}</a> - {commit['author']['name']} {escape(email_part)}\n\n"
             if len(commits_text) > 1000:
                 text = f"""✨ <b>{escape(data['repository']['name'])}</b> - New {len(data['commits'])} commits ({escape(data['ref'].split('/')[-1])})
 {commits_text}
